@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Pest\PluginName;
+namespace JHWelch\PestLaravelMigrations;
 
 use PHPUnit\Framework\TestCase;
 

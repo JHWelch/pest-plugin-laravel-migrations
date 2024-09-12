@@ -1,9 +1,20 @@
-This repository contains the Pest Plugin Template.
+# Pest Plugin for Laravel Migrations
 
-> If you want to start testing your application with Pest, visit the main **[Pest Repository](https://github.com/pestphp/pest)**.
+```php
+it('combines first_name and last_name into full_name', function (Closure $up, Closure $down) {
+    $user = User::factory([
+        'first_name' => 'John',
+        'last_name' => 'Doe',
+    ])->create();
 
-- Explore our docs at **[pestphp.com »](https://pestphp.com)**
-- Follow us on Twitter at **[@pestphp »](https://twitter.com/pestphp)**
-- Join us at **[discord.gg/kaHY6p54JH »](https://discord.gg/kaHY6p54JH)** or **[t.me/+kYH5G4d5MV83ODk0 »](https://t.me/+kYH5G4d5MV83ODk0)**
+    $up();
 
-Pest is an open-sourced software licensed under the **[MIT license](https://opensource.org/licenses/MIT)**.
+    expect($user->full_name)->toEqual('John Doe');
+
+    $down();
+
+    expect($user)
+        ->first_name->toEqual('John')
+        ->last_name->toEqual('Doe');
+})->migration('2024_09_12_144437_update_users_combine_names');
+```
