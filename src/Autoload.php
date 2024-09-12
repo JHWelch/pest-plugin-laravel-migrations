@@ -11,8 +11,8 @@ use Closure;
  */
 function migration(string $name): array
 {
-    return [
+    return [[
         fn () => null,
         fn () => null,
-    ];
+    ]];
 }
