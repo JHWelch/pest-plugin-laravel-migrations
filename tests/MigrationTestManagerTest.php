@@ -118,4 +118,16 @@ describe('error handling', function () {
         MigrationTestUsageException::class,
         '$up() must be called before $down() can be called',
     );
+
+    it('cannot target a migration that does not exist', function () {
+        $this->manager = new MigrationTestManager(
+            'fake_migration',
+            $this->allMigrations,
+        );
+
+        $this->manager->start();
+    })->throws(
+        MigrationTestUsageException::class,
+        'Migration "fake_migration" does not exist',
+    );
 });

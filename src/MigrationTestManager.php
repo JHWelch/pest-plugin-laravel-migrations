@@ -87,6 +87,12 @@ class MigrationTestManager
             }
         }
 
+        if (! $found) {
+            throw new MigrationTestUsageException(
+                "Migration \"$this->target\" does not exist",
+            );
+        }
+
         return $valuesAfter;
     }
 }
