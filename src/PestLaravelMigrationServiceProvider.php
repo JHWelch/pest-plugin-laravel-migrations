@@ -4,26 +4,12 @@ declare(strict_types=1);
 
 namespace JHWelch\PestLaravelMigrations;
 
-use Illuminate\Database\Console\Migrations\MigrateCommand;
-use Illuminate\Database\Console\Migrations\RollbackCommand;
-use Illuminate\Database\MigrationServiceProvider;
+use Illuminate\Support\ServiceProvider;
 
-class PestLaravelMigrationServiceProvider extends MigrationServiceProvider
+final class PestLaravelMigrationServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        $this->registerRepository();
-
-        $this->registerMigrator();
-
-        $this->registerMigrateCommand();
-        $this->registerMigrateRollbackCommand();
-
-        $this->commands([
-            MigrateCommand::class,
-            RollbackCommand::class,
-        ]);
-
         $this->app->singleton(
             SelectiveMigrator::class,
             fn ($app): SelectiveMigrator => new SelectiveMigrator($app['migrator'])

@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use Illuminate\Database\MigrationServiceProvider;
 use JHWelch\PestLaravelMigrations\PestLaravelMigrationServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 
@@ -9,7 +10,10 @@ class TestCase extends BaseTestCase
 {
     protected function getPackageProviders($app)
     {
-        return [PestLaravelMigrationServiceProvider::class];
+        return [
+            MigrationServiceProvider::class,
+            PestLaravelMigrationServiceProvider::class,
+        ];
     }
 
     protected function setUp(): void
