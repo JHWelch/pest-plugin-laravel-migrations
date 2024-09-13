@@ -2,15 +2,21 @@
 
 namespace Tests;
 
+use JHWelch\PestLaravelMigrations\PestLaravelMigrationServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 
 class TestCase extends BaseTestCase
 {
+    protected function getPackageProviders($app)
+    {
+        return [PestLaravelMigrationServiceProvider::class];
+    }
+
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->loadMigrationsFrom(__DIR__.'/../resources/database/migrations');
+        app()->useDatabasePath(__DIR__.'/../resources/database');
     }
 
     protected function getEnvironmentSetUp($app): void
