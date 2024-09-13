@@ -2,17 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Pest\PluginName;
+namespace JHWelch\PestLaravelMigrations;
 
-use Pest\Plugin;
-use PHPUnit\Framework\TestCase;
-
-Plugin::uses(Example::class);
+use Closure;
 
 /**
- * @return TestCase
+ * @return array<Closure>
  */
-function example(string $argument)
+function migration(string $name): array
 {
-    return test()->example(...func_get_args()); // @phpstan-ignore-line
+    $manager = app(SelectiveMigrator::class)->makeMigrationTestManager($name);
+
+    $manager->start();
+
+    return [
+        fn () => $manager->up(),
+        fn () => $manager->down(),
+    ];
 }

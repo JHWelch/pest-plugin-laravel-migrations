@@ -8,6 +8,9 @@ parameters:
     paths:
         - src
 
+    ergebnis:
+        noExtends:
+            enabled: false
+
     checkMissingIterableValueType: true
-    checkGenericClassInNonGenericObjectType: false
     reportUnmatchedIgnoredErrors: true
