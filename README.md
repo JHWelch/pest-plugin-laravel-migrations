@@ -10,11 +10,12 @@ it('combines first_name and last_name into full_name', function () {
 
     $up();
 
-    expect($user->full_name)->toEqual('John Doe');
+    expect($user->fresh())
+        ->full_name->toEqual('John Doe');
 
     $down();
 
-    expect($user)
+    expect($user->fresh())
         ->first_name->toEqual('John')
         ->last_name->toEqual('Doe');
 })
