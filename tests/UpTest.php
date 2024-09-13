@@ -1,19 +1,28 @@
 <?php
 
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Tests\TestCase;
 
 use function JHWelch\PestLaravelMigrations\migration;
 
 uses(TestCase::class);
 
-it('runs only the migrations before the given migration', function ($up, $_) {
+it('can run and rollback migration', function () {
+    [$up, $down] = migration('2024_09_12_000000_update_users_table_combine_names');
+
+    $this->assertTrue(Schema::hasColumn('users', 'first_name'));
+    $this->assertFalse(Schema::hasColumn('users', 'full_name'));
+    $this->assertFalse(Schema::hasTable('teams'));
+
     $up();
 
-    $migrations = DB::table('migrations')->get();
+    $this->assertTrue(Schema::hasColumn('users', 'full_name'));
+    $this->assertFalse(Schema::hasColumn('users', 'first_name'));
+    $this->assertFalse(Schema::hasTable('teams'));
 
-    expect($migrations)
-        ->toHaveCount(2)
-        ->{0}->name->toEqual('2014_10_12_000000_create_users_table')
-        ->{1}->name->toEqual('2019_12_14_000001_create_personal_access_tokens_table');
-})->with(migration('2024_09_12_000000_update_users_table_combine_names'));
+    $down();
+
+    $this->assertTrue(Schema::hasColumn('users', 'first_name'));
+    $this->assertFalse(Schema::hasColumn('users', 'full_name'));
+    $this->assertFalse(Schema::hasTable('teams'));
+});

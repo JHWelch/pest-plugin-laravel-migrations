@@ -11,8 +11,12 @@ use Closure;
  */
 function migration(string $name): array
 {
-    return [[
-        fn () => null,
-        fn () => null,
-    ]];
+    $manager = app(SelectiveMigrator::class)->makeMigrationTestManager($name);
+
+    $manager->start();
+
+    return [
+        fn () => $manager->up(),
+        fn () => $manager->down(),
+    ];
 }
