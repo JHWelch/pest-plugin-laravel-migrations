@@ -8,18 +8,11 @@ use Illuminate\Database\MigrationServiceProvider;
 
 class PestLaravelMigrationServiceProvider extends MigrationServiceProvider
 {
-    /**
-     * Register the service provider.
-     *
-     * @return void
-     */
-    public function register()
+    public function register(): void
     {
         $this->registerRepository();
 
         $this->registerMigrator();
-
-        // $this->registerCreator();
 
         $this->registerMigrateCommand();
         $this->registerMigrateRollbackCommand();
@@ -29,8 +22,9 @@ class PestLaravelMigrationServiceProvider extends MigrationServiceProvider
             RollbackCommand::class,
         ]);
 
-        $this->app->singleton(SelectiveMigrator::class, function ($app) {
-            return new SelectiveMigrator($app['migrator']);
-        });
+        $this->app->singleton(
+            SelectiveMigrator::class,
+            fn ($app): SelectiveMigrator => new SelectiveMigrator($app['migrator'])
+        );
     }
 }

@@ -29,7 +29,7 @@ class MigrationTestManager
         $migrations = $this->migrationsAfterTarget();
 
         DB::table('migrations')
-            ->insert(array_map(fn ($migration) => [
+            ->insert(array_map(fn ($migration): array => [
                 'migration' => $migration,
                 'batch' => 1,
             ], [$this->target, ...$migrations]));
