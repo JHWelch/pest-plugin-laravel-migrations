@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use JHWelch\PestLaravelMigrations\Exceptions\MigrationTestUsageException;
 use JHWelch\PestLaravelMigrations\MigrationTestManager;
 use Tests\TestCase;
 
@@ -70,5 +71,51 @@ describe('up', function () {
             'migration' => '2024_09_12_000000_update_users_table_combine_names',
             'batch' => 3,
         ]);
+        $this->assertDatabaseCount('migrations', 5);
     });
+});
+
+describe('down', function () {
+    beforeEach(function () {
+        app('migrator')->getRepository()->createRepository();
+
+        $this->manager->start();
+        $this->manager->up();
+    });
+
+    it('rolls back the target migration', function () {
+        $this->manager->down();
+
+        $this->assertDatabaseMissing('migrations', [
+            'migration' => '2024_09_12_000000_update_users_table_combine_names',
+            'batch' => 3,
+        ]);
+        $this->assertDatabaseCount('migrations', 4);
+    });
+});
+
+describe('error handling', function () {
+    it('cannot run up without starting', function () {
+        $this->manager->up();
+    })->throws(
+        MigrationTestUsageException::class,
+        'MigrationTestManager must be started before up() can be called',
+    );
+
+    it('cannot run down without starting', function () {
+        $this->manager->down();
+    })->throws(
+        MigrationTestUsageException::class,
+        'MigrationTestManager must be started before down() can be called',
+    );
+
+    it('cannot run down without running up', function () {
+        app('migrator')->getRepository()->createRepository();
+        $this->manager->start();
+
+        $this->manager->down();
+    })->throws(
+        MigrationTestUsageException::class,
+        '$up() must be called before $down() can be called',
+    );
 });

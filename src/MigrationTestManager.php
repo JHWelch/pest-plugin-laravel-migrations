@@ -4,9 +4,14 @@ namespace JHWelch\PestLaravelMigrations;
 
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
+use JHWelch\PestLaravelMigrations\Exceptions\MigrationTestUsageException;
 
 class MigrationTestManager
 {
+    protected bool $started = false;
+
+    protected bool $upped = false;
+
     /**
      * @param  string[]  $migrations
      */
@@ -17,6 +22,10 @@ class MigrationTestManager
 
     public function start(): void
     {
+        if ($this->started) {
+            return;
+        }
+
         $migrations = $this->migrationsAfterTarget();
 
         DB::table('migrations')
@@ -30,14 +39,41 @@ class MigrationTestManager
         DB::table('migrations')
             ->where('migration', $this->target)
             ->delete();
+
+        $this->started = true;
     }
 
     public function up(): void
     {
+        if (! $this->started) {
+            throw new MigrationTestUsageException(
+                'MigrationTestManager must be started before up() can be called',
+            );
+        }
+
         Artisan::call('migrate');
+
+        $this->upped = true;
     }
 
-    public function down(): void {}
+    public function down(): void
+    {
+        if (! $this->started) {
+            throw new MigrationTestUsageException(
+                'MigrationTestManager must be started before down() can be called',
+            );
+        }
+
+        if (! $this->upped) {
+            throw new MigrationTestUsageException(
+                '$up() must be called before $down() can be called',
+            );
+        }
+
+        Artisan::call('migrate:rollback');
+
+        $this->upped = false;
+    }
 
     protected function migrationsAfterTarget(): array
     {
