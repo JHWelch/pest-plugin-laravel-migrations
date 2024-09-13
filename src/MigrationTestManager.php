@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace JHWelch\PestLaravelMigrations;
 
 use Illuminate\Support\Facades\Artisan;

@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace JHWelch\PestLaravelMigrations;
 
 use Illuminate\Database\Migrations\Migrator;
 
-class SelectiveMigrator
+final class SelectiveMigrator
 {
     public function __construct(
         protected Migrator $migrator,
