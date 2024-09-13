@@ -1,7 +1,8 @@
 # Pest Plugin for Laravel Migrations
 
 ```php
-it('combines first_name and last_name into full_name', function (Closure $up, Closure $down) {
+it('combines first_name and last_name into full_name', function () {
+    [$up, $down] = migration('2024_09_12_144437_update_users_combine_names');
     $user = User::factory([
         'first_name' => 'John',
         'last_name' => 'Doe',
@@ -16,5 +17,5 @@ it('combines first_name and last_name into full_name', function (Closure $up, Cl
     expect($user)
         ->first_name->toEqual('John')
         ->last_name->toEqual('Doe');
-})->migration('2024_09_12_144437_update_users_combine_names');
+})
 ```
