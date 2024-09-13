@@ -34,7 +34,7 @@ final class SelectiveMigrator
         ];
     }
 
-    protected function getMigrationPath(): string
+    private function getMigrationPath(): string
     {
         return app()->databasePath().DIRECTORY_SEPARATOR.'migrations';
     }

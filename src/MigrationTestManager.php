@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use JHWelch\PestLaravelMigrations\Exceptions\MigrationTestUsageException;
 
-class MigrationTestManager
+final class MigrationTestManager
 {
-    protected bool $started = false;
+    private bool $started = false;
 
-    protected bool $upped = false;
+    private bool $upped = false;
 
     /**
      * @param  string[]  $migrations
@@ -77,7 +77,10 @@ class MigrationTestManager
         $this->upped = false;
     }
 
-    protected function migrationsAfterTarget(): array
+    /**
+     * @return string[]
+     */
+    private function migrationsAfterTarget(): array
     {
         $valuesAfter = [];
         $found = false;

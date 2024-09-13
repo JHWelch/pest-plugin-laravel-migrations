@@ -6,4 +6,4 @@ namespace JHWelch\PestLaravelMigrations\Exceptions;
 
 use Exception;
 
-class MigrationTestUsageException extends Exception {}
+final class MigrationTestUsageException extends Exception {}
