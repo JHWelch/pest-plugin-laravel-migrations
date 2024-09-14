@@ -6,7 +6,7 @@ namespace JHWelch\PestLaravelMigrations;
 
 use Illuminate\Support\ServiceProvider;
 
-final class PestLaravelMigrationServiceProvider extends ServiceProvider
+final class PestLaravelMigrationsServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
