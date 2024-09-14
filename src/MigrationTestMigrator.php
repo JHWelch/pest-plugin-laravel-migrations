@@ -6,7 +6,7 @@ namespace JHWelch\PestLaravelMigrations;
 
 use Illuminate\Database\Migrations\Migrator;
 
-final class SelectiveMigrator
+final class MigrationTestMigrator
 {
     public function __construct(
         protected Migrator $migrator,
@@ -14,7 +14,7 @@ final class SelectiveMigrator
 
     public function makeMigrationTestManager(string $target): MigrationTestManager
     {
-        $this->migrator->getRepository()->createRepository();
+        $this->createMigrationTable();
 
         $migrations = array_keys(
             $this->migrator->getMigrationFiles($this->getMigrationPaths())
@@ -23,10 +23,15 @@ final class SelectiveMigrator
         return new MigrationTestManager($target, $migrations);
     }
 
+    private function createMigrationTable(): void
+    {
+        $this->migrator->getRepository()->createRepository();
+    }
+
     /**
      * @return string[]
      */
-    public function getMigrationPaths(): array
+    private function getMigrationPaths(): array
     {
         return [
             ...$this->migrator->paths(),

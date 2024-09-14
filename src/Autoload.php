@@ -11,7 +11,8 @@ use Closure;
  */
 function migration(string $target): array
 {
-    $manager = app(SelectiveMigrator::class)->makeMigrationTestManager($target);
+    $manager = app(MigrationTestMigrator::class)
+        ->makeMigrationTestManager($target);
 
     $manager->start();
 
