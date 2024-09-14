@@ -11,8 +11,8 @@ final class PestLaravelMigrationServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->singleton(
-            SelectiveMigrator::class,
-            fn ($app): SelectiveMigrator => new SelectiveMigrator($app['migrator'])
+            MigrationTestMigrator::class,
+            fn ($app): MigrationTestMigrator => new MigrationTestMigrator($app['migrator'])
         );
     }
 }
