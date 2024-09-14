@@ -1,6 +1,12 @@
-# Pest Plugin for Laravel Migrations
+<?php
 
-```php
+use Tests\Stubs\User;
+use Tests\TestCase;
+
+use function JHWelch\PestLaravelMigrations\migration;
+
+uses(TestCase::class);
+
 it('combines first_name and last_name into full_name', function () {
     [$up, $down] = migration('2024_09_12_000000_update_users_table_combine_names');
 
@@ -22,4 +28,3 @@ it('combines first_name and last_name into full_name', function () {
         ->first_name->toEqual('John')
         ->last_name->toEqual('Doe');
 });
-```
