@@ -7,11 +7,11 @@ namespace JHWelch\PestLaravelMigrations;
 use Closure;
 
 /**
- * @return array<Closure>
+ * @return array{Closure(): void, Closure(): void}
  */
-function migration(string $name): array
+function migration(string $target): array
 {
-    $manager = app(SelectiveMigrator::class)->makeMigrationTestManager($name);
+    $manager = app(SelectiveMigrator::class)->makeMigrationTestManager($target);
 
     $manager->start();
 
