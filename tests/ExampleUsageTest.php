@@ -13,8 +13,6 @@ it('combines first_name and last_name into full_name', function () {
     $user = User::create([
         'first_name' => 'John',
         'last_name' => 'Doe',
-        'email' => fake()->safeEmail(),
-        'password' => 'password',
     ]);
 
     $up();
