@@ -74,6 +74,8 @@ it('tests migrations', () {
 });
 ```
 
+For more realistic examples see [ExampleUsageTest.php](tests/ExampleUsageTest.php).
+
 ## Development 
 
 This package is developed locally with [Laravel Herd](https://herd.laravel.com/), however any modern PHP environment should suffice.
