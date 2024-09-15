@@ -3,9 +3,7 @@
 A Pest PHP plugin that lets you test Laravel migrations with a simple and straight forward syntax.
 
 ```php
-it('combines first_name and last_name into full_name', function () {
-    [$up, $down] = migration('2024_09_12_000000_update_users_table_combine_names');
-
+testMigration('2024_09_12_000000_update_users_table_combine_names', function ($up, $down) {
     $user = User::create([
         'first_name' => 'John',
         'last_name' => 'Doe',
@@ -37,7 +35,37 @@ Please lock any usage to the minor version, and be wary about any production usa
 
 ## Usage
 
-This package consists of the single Pest function `migration`. It returns a two item array with an `$up` and `$down` `Closure`s that trigger each half of the migration.
+This package consists of two Pest functions: `testMigration` and `migration`. 
+
+### `testMigration`
+
+`testMigration` is the most straight forward way to write a migration test. 
+
+All migrations are run up until the target. The target is then migrated on `$up()` and rolled back with `$down()`, allowing for setup and assertions at each step.
+
+```php
+use function JHWelch\PestLaravelMigrations\testMigration;
+
+testMigration('2024_09_12_000000_migration_name', ($up, $down) {
+    // Setup test Data
+    // All migrations up until target have been run
+
+    $up();
+
+    // Run Assertions after migration "up"
+
+    $down()
+
+    // Run Assertions after migration "down"
+});
+```
+
+
+### `migration`
+
+This function is the core of the functionality that `testMigration` is wrapping, but allows for more customizability.
+
+It returns a two item array with an `$up` and `$down` `Closure`s that trigger each half of the migration.
 
 The easiest way to use this is to destructure the array.
 
@@ -53,25 +81,6 @@ it('tests migrations', () {
 });
 ```
 
-This can be then used to assert against each step of the migration
-
-```php
-use function JHWelch\PestLaravelMigrations\migration;
-
-it('tests migrations', () {
-    [$up, $down] = migration('2024_09_12_000000_migration_name');
-
-    // Setup test Data
-    // All migrations up until target have been run
-
-    $up();
-
-    // Run Assertions after migration "up"
-
-    $down()
-
-    // Run Assertions after migration "down"
-});
-```
+### More Examples
 
 For more realistic examples see [ExampleUsageTest.php](tests/ExampleUsageTest.php).
