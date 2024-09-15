@@ -12,7 +12,7 @@ use Pest\Support\HigherOrderTapProxy;
 /**
  * @return array{Closure(): void, Closure(): void}
  */
-function migration(string $target): array
+function migrationFunctions(string $target): array
 {
     $manager = app(MigrationTestMigrator::class)
         ->makeMigrationTestManager($target);
@@ -25,7 +25,7 @@ function migration(string $target): array
     ];
 }
 
-function testMigration(
+function migration(
     string $target,
     Closure $closure
 ): HigherOrderTapProxy|TestCall {
@@ -40,10 +40,10 @@ function testMigration(
 
         if ($intersect = array_intersect(class_uses($this), $incompatibleTraits)) {
             throw new MigrationTestUsageException(
-                'The following traits are incompatible with the `testMigration` usage: '.implode(', ', $intersect)
+                'The following traits are incompatible with the `migration` usage: '.implode(', ', $intersect)
             );
         }
 
-        return $closure->bindTo($this, self::class)(...migration($target));
+        return $closure->bindTo($this, self::class)(...migrationFunctions($target));
     });
 }

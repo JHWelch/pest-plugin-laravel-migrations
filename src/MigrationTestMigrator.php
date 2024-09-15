@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Artisan;
 final class MigrationTestMigrator
 {
     public function __construct(
-        protected Migrator $migrator,
+        private readonly Migrator $migrator,
     ) {}
 
     public function makeMigrationTestManager(string $target): MigrationTestManager

@@ -18,8 +18,8 @@ final class MigrationTestManager
      * @param  string[]  $migrations
      */
     public function __construct(
-        protected string $target,
-        protected array $migrations,
+        private readonly string $target,
+        private readonly array $migrations,
     ) {}
 
     public function start(): void
@@ -82,12 +82,12 @@ final class MigrationTestManager
      */
     private function migrationsAfterTarget(): array
     {
-        $valuesAfter = [];
+        $migrationsAfter = [];
         $found = false;
-        foreach ($this->migrations as $item) {
+        foreach ($this->migrations as $migration) {
             if ($found) {
-                $valuesAfter[] = $item;
-            } elseif ($item === $this->target) {
+                $migrationsAfter[] = $migration;
+            } elseif ($migration === $this->target) {
                 $found = true;
             }
         }
@@ -98,6 +98,6 @@ final class MigrationTestManager
             );
         }
 
-        return $valuesAfter;
+        return $migrationsAfter;
     }
 }

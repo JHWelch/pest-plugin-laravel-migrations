@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Stubs;
+namespace JHWelch\PestLaravelMigrations\App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

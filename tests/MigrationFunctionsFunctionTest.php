@@ -1,13 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Schema;
-use Tests\TestCase;
+use JHWelch\PestLaravelMigrations\Tests\TestCase;
 
-use function JHWelch\PestLaravelMigrations\testMigration;
+use function JHWelch\PestLaravelMigrations\migrationFunctions;
 
 uses(TestCase::class);
 
-testMigration('2024_09_12_000000_update_users_table_combine_names', function ($up, $down) {
+it('can run and rollback migration', function () {
+    [$up, $down] = migrationFunctions('2024_09_12_000000_update_users_table_combine_names');
+
     $this->assertTrue(Schema::hasColumn('users', 'first_name'));
     $this->assertFalse(Schema::hasColumn('users', 'full_name'));
     $this->assertFalse(Schema::hasTable('teams'));

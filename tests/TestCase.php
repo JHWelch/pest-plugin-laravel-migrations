@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace JHWelch\PestLaravelMigrations\Tests;
 
 use Illuminate\Database\MigrationServiceProvider;
 use JHWelch\PestLaravelMigrations\PestLaravelMigrationsServiceProvider;
