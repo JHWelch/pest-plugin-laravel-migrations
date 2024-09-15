@@ -18,8 +18,8 @@ final class MigrationTestManager
      * @param  string[]  $migrations
      */
     public function __construct(
-        protected string $target,
-        protected array $migrations,
+        private readonly string $target,
+        private readonly array $migrations,
     ) {}
 
     public function start(): void
