@@ -54,7 +54,7 @@ testMigration('2024_09_12_000000_migration_name', ($up, $down) {
 
     // Run Assertions after migration "up"
 
-    $down()
+    $down();
 
     // Run Assertions after migration "down"
 });
