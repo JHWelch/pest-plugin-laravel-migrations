@@ -4,12 +4,12 @@ use JHWelch\PestLaravelMigrations\App\Models\User;
 use JHWelch\PestLaravelMigrations\Tests\TestCase;
 
 use function JHWelch\PestLaravelMigrations\migration;
-use function JHWelch\PestLaravelMigrations\testMigration;
+use function JHWelch\PestLaravelMigrations\migrationFunctions;
 
 uses(TestCase::class);
 
 it('combines first_name and last_name into full_name', function () {
-    [$up] = migration('2024_09_12_000000_update_users_table_combine_names');
+    [$up] = migrationFunctions('2024_09_12_000000_update_users_table_combine_names');
 
     $user = User::create([
         'first_name' => 'John',
@@ -23,7 +23,7 @@ it('combines first_name and last_name into full_name', function () {
 });
 
 it('combines first_name and last_name into full_name and can revert', function () {
-    [$up, $down] = migration('2024_09_12_000000_update_users_table_combine_names');
+    [$up, $down] = migrationFunctions('2024_09_12_000000_update_users_table_combine_names');
 
     $user = User::create([
         'first_name' => 'John',
@@ -42,8 +42,8 @@ it('combines first_name and last_name into full_name and can revert', function (
         ->last_name->toEqual('Doe');
 });
 
-// testMigration('2024_09_12_000000_update_users_table_combine_names', function ($up) {
-//     [$up] = migration('2024_09_12_000000_update_users_table_combine_names');
+// migration('2024_09_12_000000_update_users_table_combine_names', function ($up) {
+//     [$up] = migrationFunctions('2024_09_12_000000_update_users_table_combine_names');
 
 //     $user = User::create([
 //         'first_name' => 'John',
@@ -56,7 +56,7 @@ it('combines first_name and last_name into full_name and can revert', function (
 //         ->full_name->toEqual('John Doe');
 // });
 
-testMigration('2024_09_12_000000_update_users_table_combine_names', function ($up, $down) {
+migration('2024_09_12_000000_update_users_table_combine_names', function ($up, $down) {
     $user = User::create([
         'first_name' => 'John',
         'last_name' => 'Doe',

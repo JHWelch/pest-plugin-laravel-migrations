@@ -3,7 +3,7 @@
 A Pest PHP plugin that lets you test Laravel migrations with a simple and straight forward syntax.
 
 ```php
-testMigration('2024_09_12_000000_update_users_table_combine_names', function ($up, $down) {
+migration('2024_09_12_000000_update_users_table_combine_names', function ($up, $down) {
     $user = User::create([
         'first_name' => 'John',
         'last_name' => 'Doe',
@@ -36,18 +36,18 @@ Once the package is marked stable it will abide by [Semver](https://semver.org/)
 
 ## Usage
 
-This package consists of two Pest functions: `testMigration` and `migration`. 
+This package consists of two Pest functions: `migration` and `migrationFunctions`. 
 
-### `testMigration`
+### `migration`
 
-`testMigration` is the most straight forward way to write a migration test. 
+`migration` is the most straight forward way to write a migration test. 
 
 All migrations are run up until the target. The target is then migrated on `$up()` and rolled back with `$down()`, allowing for setup and assertions at each step.
 
 ```php
-use function JHWelch\PestLaravelMigrations\testMigration;
+use function JHWelch\PestLaravelMigrations\migration;
 
-testMigration('2024_09_12_000000_migration_name', ($up, $down) {
+migration('2024_09_12_000000_migration_name', ($up, $down) {
     // Setup test Data
     // All migrations up until target have been run
 
@@ -61,24 +61,38 @@ testMigration('2024_09_12_000000_migration_name', ($up, $down) {
 });
 ```
 
+If you are only testing the `up()` part of the migration, you can simply exclude the `$down` parameter entirely.
 
-### `migration`
+```php
+migration('2024_09_12_000000_migration_name', ($up) {
+    // Setup test Data
+    // All migrations up until target have been run
 
-This function is the core of the functionality that `testMigration` is wrapping, but allows for more customizability.
+    $up();
+
+    // Run Assertions after migration "up"
+});
+```
+
+
+
+### `migrationFunctions`
+
+This function is the core of the functionality that `migration` is wrapping, but allows for more customizability.
 
 It returns a two item array with an `$up` and `$down` `Closure`s that trigger each half of the migration.
 
 The easiest way to use this is to destructure the array.
 
 ```php
-use function JHWelch\PestLaravelMigrations\migration;
+use function JHWelch\PestLaravelMigrations\migrationFunctions;
 
 it('tests migrations', () {
     # Test only "up"
-    [$up] = migration('2024_09_12_000000_migration_name');
+    [$up] = migrationFunctions('2024_09_12_000000_migration_name');
     
     # Test both "up" and "down"
-    [$up, $down] = migration('2024_09_12_000000_migration_name');
+    [$up, $down] = migrationFunctions('2024_09_12_000000_migration_name');
 });
 ```
 

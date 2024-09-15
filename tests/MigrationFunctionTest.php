@@ -3,12 +3,12 @@
 use Illuminate\Support\Facades\Schema;
 use JHWelch\PestLaravelMigrations\Tests\TestCase;
 
-use function JHWelch\PestLaravelMigrations\migration;
+use function JHWelch\PestLaravelMigrations\migrationFunctions;
 
 uses(TestCase::class);
 
 it('can run and rollback migration', function () {
-    [$up, $down] = migration('2024_09_12_000000_update_users_table_combine_names');
+    [$up, $down] = migrationFunctions('2024_09_12_000000_update_users_table_combine_names');
 
     $this->assertTrue(Schema::hasColumn('users', 'first_name'));
     $this->assertFalse(Schema::hasColumn('users', 'full_name'));
