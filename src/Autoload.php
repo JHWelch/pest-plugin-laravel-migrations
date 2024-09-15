@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace JHWelch\PestLaravelMigrations;
 
 use Closure;
+use JHWelch\PestLaravelMigrations\Exceptions\MigrationTestUsageException;
 use Pest\PendingCalls\TestCall;
 use Pest\Support\HigherOrderTapProxy;
 
@@ -28,8 +29,18 @@ function testMigration(
     string $target,
     Closure $closure
 ): HigherOrderTapProxy|TestCall {
-    return test(
-        'Test migration: '.$target,
-        fn () => $closure->bindTo($this, self::class)(...migration($target)),
-    );
+    return test('Test migration: '.$target, function () use ($target, $closure) {
+        $incompatibleTraits = [
+            \Illuminate\Foundation\Testing\LazilyRefreshDatabase::class,
+            \Illuminate\Foundation\Testing\RefreshDatabase::class,
+        ];
+
+        if ($intersect = array_intersect(class_uses($this), $incompatibleTraits)) {
+            throw new MigrationTestUsageException(
+                'The following traits are incompatible with the `testMigration` usage: '.implode(', ', $intersect)
+            );
+        }
+
+        return $closure->bindTo($this, self::class)(...migration($target));
+    });
 }
