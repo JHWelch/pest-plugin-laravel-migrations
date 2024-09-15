@@ -32,6 +32,8 @@ function testMigration(
     return test('Test migration: '.$target, function () use ($target, $closure) {
         $incompatibleTraits = [
             \Illuminate\Foundation\Testing\DatabaseMigrations::class,
+            \Illuminate\Foundation\Testing\DatabaseTransactions::class,
+            \Illuminate\Foundation\Testing\DatabaseTruncation::class,
             \Illuminate\Foundation\Testing\LazilyRefreshDatabase::class,
             \Illuminate\Foundation\Testing\RefreshDatabase::class,
         ];
