@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use JHWelch\PestLaravelMigrations\Exceptions\MigrationTestUsageException;
 use JHWelch\PestLaravelMigrations\MigrationTestManager;
-use Tests\TestCase;
+use JHWelch\PestLaravelMigrations\Tests\TestCase;
 
 uses(TestCase::class);
 

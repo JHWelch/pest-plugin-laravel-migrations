@@ -2,7 +2,7 @@
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use JHWelch\PestLaravelMigrations\Exceptions\MigrationTestUsageException;
-use Tests\TestCase;
+use JHWelch\PestLaravelMigrations\Tests\TestCase;
 
 use function JHWelch\PestLaravelMigrations\testMigration;
 

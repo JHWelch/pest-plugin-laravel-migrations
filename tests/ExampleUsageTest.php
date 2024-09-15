@@ -1,7 +1,7 @@
 <?php
 
-use Tests\Stubs\User;
-use Tests\TestCase;
+use JHWelch\PestLaravelMigrations\App\Models\User;
+use JHWelch\PestLaravelMigrations\Tests\TestCase;
 
 use function JHWelch\PestLaravelMigrations\migration;
 use function JHWelch\PestLaravelMigrations\testMigration;

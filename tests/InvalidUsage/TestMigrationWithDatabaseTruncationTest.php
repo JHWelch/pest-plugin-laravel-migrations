@@ -2,7 +2,7 @@
 
 use Illuminate\Foundation\Testing\DatabaseTruncation;
 use JHWelch\PestLaravelMigrations\Exceptions\MigrationTestUsageException;
-use Tests\TestCase;
+use JHWelch\PestLaravelMigrations\Tests\TestCase;
 
 use function JHWelch\PestLaravelMigrations\testMigration;
 

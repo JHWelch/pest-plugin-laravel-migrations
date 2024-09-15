@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Schema;
-use Tests\TestCase;
+use JHWelch\PestLaravelMigrations\Tests\TestCase;
 
 use function JHWelch\PestLaravelMigrations\testMigration;
 

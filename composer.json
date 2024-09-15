@@ -22,7 +22,8 @@
     "autoload": {
         "psr-4": {
             "JHWelch\\PestLaravelMigrations\\": "src/",
-            "Tests\\": "tests/"
+            "JHWelch\\PestLaravelMigrations\\App\\": "resources/app",
+            "JHWelch\\PestLaravelMigrations\\Tests\\": "tests/"
         },
         "files": [
             "src/Autoload.php"
