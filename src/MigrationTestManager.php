@@ -82,12 +82,12 @@ final class MigrationTestManager
      */
     private function migrationsAfterTarget(): array
     {
-        $valuesAfter = [];
+        $migrationsAfter = [];
         $found = false;
-        foreach ($this->migrations as $item) {
+        foreach ($this->migrations as $migration) {
             if ($found) {
-                $valuesAfter[] = $item;
-            } elseif ($item === $this->target) {
+                $migrationsAfter[] = $migration;
+            } elseif ($migration === $this->target) {
                 $found = true;
             }
         }
@@ -98,6 +98,6 @@ final class MigrationTestManager
             );
         }
 
-        return $valuesAfter;
+        return $migrationsAfter;
     }
 }
