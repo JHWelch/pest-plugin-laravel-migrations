@@ -47,7 +47,7 @@ All migrations are run up until the target. The target is then migrated on `$up(
 ```php
 use function JHWelch\PestLaravelMigrations\migration;
 
-migration('2024_09_12_000000_migration_name', ($up, $down) {
+migration('2024_09_12_000000_migration_name', function ($up, $down) {
     // Setup test Data
     // All migrations up until target have been run
 
@@ -64,7 +64,7 @@ migration('2024_09_12_000000_migration_name', ($up, $down) {
 If you are only testing the `up()` part of the migration, you can simply exclude the `$down` parameter entirely.
 
 ```php
-migration('2024_09_12_000000_migration_name', ($up) {
+migration('2024_09_12_000000_migration_name', function ($up) {
     // Setup test Data
     // All migrations up until target have been run
 
