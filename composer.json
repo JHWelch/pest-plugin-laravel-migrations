@@ -9,7 +9,8 @@
         "test",
         "testing",
         "plugin",
-        "migrations"
+        "migrations",
+        "laravel"
     ],
     "license": "MIT",
     "require": {
