@@ -3,7 +3,7 @@ name: Tests
 on: ['pull_request']
 
 concurrency:
-  group: qc-${{ github.event.pull_request.number }}
+  group: tests-${{ github.event.pull_request.number }}
   cancel-in-progress: true
 
 jobs:
