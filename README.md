@@ -22,13 +22,16 @@ testMigration('2024_09_12_000000_update_users_table_combine_names', function ($u
 });
 ```
 
-With Pest and other modern tooling, it is easy to test almost every aspect of a Laravel application. However, one of the places with the greatest permanent data implications remains untested. Database migrations.
+With Pest and other modern tooling, it is easy to test almost every aspect of a Laravel application. However, one of the places with the greatest permanent data implications remains untested. 
+
+_Database migrations._
 
 Any given test is run against the latest state of a database. This makes it difficult to test any migration that is doing any sort of complicated data migration. 
 
 This package seeks to fill that gap.
 
 ## This package is a **Work In Progress**
+
 Once the package is marked stable it will abide by [Semver](https://semver.org/), however in this period the API is not guaranteed to maintain consistent.
 
 ## Usage
