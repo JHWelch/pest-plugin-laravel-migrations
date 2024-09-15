@@ -40,6 +40,13 @@
             "pestphp/pest-plugin": true
         }
     },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "JHWelch\\PestLaravelMigrations\\PestLaravelMigrationsServiceProvider"
+            ]
+        }
+    },
     "scripts": {
         "refacto": "rector",
         "lint": "pint",

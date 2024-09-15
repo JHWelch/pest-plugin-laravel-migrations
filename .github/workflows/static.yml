@@ -3,7 +3,7 @@ name: Static Analysis
 on: ['pull_request']
 
 concurrency:
-  group: qc-${{ github.event.pull_request.number }}
+  group: static-${{ github.event.pull_request.number }}
   cancel-in-progress: true
 
 jobs:
