@@ -29,9 +29,7 @@ Any given test is run against the latest state of a database. This makes it diff
 This package seeks to fill that gap.
 
 ## This package is a **Work In Progress**
-Once the package is tagged 1.0.0 it will abide by [Semver](https://semver.org/), however in this period the API is not guaranteed to maintain consistent.
-
-Please lock any usage to the minor version, and be wary about any production usage.
+Once the package is marked stable it will abide by [Semver](https://semver.org/), however in this period the API is not guaranteed to maintain consistent.
 
 ## Usage
 
