@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace JHWelch\PestLaravelMigrations;
 
 use Illuminate\Database\Migrations\Migrator;
+use Illuminate\Support\Facades\Artisan;
 
 final class MigrationTestMigrator
 {
@@ -14,6 +15,7 @@ final class MigrationTestMigrator
 
     public function makeMigrationTestManager(string $target): MigrationTestManager
     {
+        $this->clearDatabase();
         $this->createMigrationTable();
 
         $migrations = array_keys(
@@ -21,6 +23,11 @@ final class MigrationTestMigrator
         );
 
         return new MigrationTestManager($target, $migrations);
+    }
+
+    private function clearDatabase(): void
+    {
+        Artisan::call('db:wipe');
     }
 
     private function createMigrationTable(): void
