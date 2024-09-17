@@ -3,7 +3,6 @@
 namespace JHWelch\PestLaravelMigrations\Commands;
 
 use Illuminate\Database\Console\Migrations\MigrateMakeCommand as LaravelMigrateMakeCommand;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Str;
 
 class MigrateMakeCommand extends LaravelMigrateMakeCommand
@@ -37,6 +36,6 @@ class MigrateMakeCommand extends LaravelMigrateMakeCommand
     {
         $name = Str::studly(preg_replace('/[0-9]+/', '', $name)).'Test';
 
-        Artisan::call("make:test Tests/Migration/$name");
+        $this->call('make:test', ['name' => "Tests/Migration/$name"]);
     }
 }
