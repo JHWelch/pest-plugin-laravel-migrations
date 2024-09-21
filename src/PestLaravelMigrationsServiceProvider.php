@@ -55,7 +55,7 @@ final class PestLaravelMigrationsServiceProvider extends ServiceProvider
     {
         $this->app->extend(
             LaravelMigrateMakeCommand::class,
-            fn ($_, array $app): MigrateMakeCommand => new MigrateMakeCommand(
+            fn ($_, $app): MigrateMakeCommand => new MigrateMakeCommand(
                 $app['migration.creator'],
                 $app['composer']
             ));

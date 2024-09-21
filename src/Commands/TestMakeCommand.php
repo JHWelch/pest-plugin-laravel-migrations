@@ -9,7 +9,7 @@ use Symfony\Component\Console\Input\InputOption;
 class TestMakeCommand extends LaravelTestMakeCommand
 {
     /**
-     * @return array
+     * @return array<array<int|string>>
      */
     #[Override]
     protected function getOptions()

@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace JHWelch\PestLaravelMigrations\Commands;
 
 use Illuminate\Database\Console\Migrations\MigrateMakeCommand as LaravelMigrateMakeCommand;
 use Illuminate\Support\Str;
+use JHWelch\PestLaravelMigrations\Exceptions\OverrideCommandException;
 
 class MigrateMakeCommand extends LaravelMigrateMakeCommand
 {
@@ -34,11 +37,17 @@ class MigrateMakeCommand extends LaravelMigrateMakeCommand
         parent::writeMigration($name, $table, $create);
     }
 
-    protected function createMigrationTest($path)
+    protected function createMigrationTest(string $path): void
     {
-        $migration = basename((string) $path, '.php');
+        $migration = basename($path, '.php');
 
-        $testName = Str::studly(preg_replace('/\d+/', '', $migration)).'Test';
+        $testNameCamel = preg_replace('/\d+/', '', $migration);
+
+        if (! $testNameCamel) {
+            throw new OverrideCommandException;
+        }
+
+        $testName = Str::studly($testNameCamel).'Test';
 
         $this->call('make:test', [
             'name' => $testName,
