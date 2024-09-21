@@ -21,6 +21,28 @@ class TestMakeCommand extends LaravelTestMakeCommand
     }
 
     /**
+     * @return string
+     */
+    #[Override]
+    protected function getStub()
+    {
+        return $this->option('migration')
+            ? $this->resolveMigrationStubPath('/stubs/pest.migration.stub')
+            : parent::getStub();
+    }
+
+    /**
+     * @param  string  $stub
+     * @return string
+     */
+    protected function resolveMigrationStubPath($stub)
+    {
+        return file_exists($customPath = $this->laravel->basePath(trim($stub, '/')))
+                        ? $customPath
+                        : __DIR__.$stub;
+    }
+
+    /**
      * @param  string  $rootNamespace
      * @return string
      */
