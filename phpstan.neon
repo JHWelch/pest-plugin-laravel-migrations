@@ -1,25 +1,11 @@
-includes:
-    - vendor/phpstan/phpstan-strict-rules/rules.neon
-    - vendor/ergebnis/phpstan-rules/rules.neon
-    - vendor/thecodingmachine/phpstan-strict-rules/phpstan-strict-rules.neon
-
 parameters:
     level: max
     paths:
         - src
 
-    ergebnis:
-        noExtends:
-            enabled: false
-
     checkMissingIterableValueType: true
     reportUnmatchedIgnoredErrors: true
     ignoreErrors:
-        -
-            message: "#^Only booleans are allowed in an if condition, array\\<string, class\\-string\\> given\\.$#"
-            count: 1
-            path: src/Autoload.php
-
         -
             message: "#^Trying to invoke Closure\\|null but it might not be a callable\\.$#"
             count: 1
