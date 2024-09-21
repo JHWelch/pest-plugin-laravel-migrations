@@ -53,4 +53,35 @@ class TestMakeCommand extends LaravelTestMakeCommand
             ? $rootNamespace.'\Migration'
             : parent::getDefaultNamespace($rootNamespace);
     }
+
+    /**
+     * @param  string  $name
+     * @return string
+     *
+     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     */
+    #[Override]
+    protected function buildClass($name)
+    {
+        return $this->replaceMigrationName(parent::buildClass($name));
+    }
+
+    /**
+     * @param  string  $stub
+     * @return string
+     */
+    protected function replaceMigrationName($stub)
+    {
+        $migrationName = $this->option('migration');
+
+        if (! $migrationName) {
+            return $stub;
+        }
+
+        if ($migrationName === true) {
+            $migrationName = 'update_table_add_column';
+        }
+
+        return str_replace(['{{ MigrationName }}', '{{ MigrationName }}'], $migrationName, $stub);
+    }
 }
