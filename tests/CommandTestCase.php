@@ -7,7 +7,7 @@ use RecursiveIteratorIterator;
 
 class CommandTestCase extends TestCase
 {
-    protected const TEST_DIRECTORY = __DIR__.'/test_data';
+    protected const TEST_DIRECTORY = __DIR__.'/../test_data';
 
     protected function setUp(): void
     {
@@ -21,7 +21,6 @@ class CommandTestCase extends TestCase
 
     protected function clearTestData(): void
     {
-
         $iterator = new RecursiveIteratorIterator(
             new RecursiveDirectoryIterator(self::TEST_DIRECTORY)
         );
