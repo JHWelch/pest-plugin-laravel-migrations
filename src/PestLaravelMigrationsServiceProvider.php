@@ -43,10 +43,12 @@ final class PestLaravelMigrationsServiceProvider extends ServiceProvider
 
     public function replaceCommands(): void
     {
-        array_map(fn ($command) => match ($command) {
-            MigrateMakeCommand::class => $this->overrideMigrationMakeCommand(),
-            TestMakeCommand::class => $this->overrideTestMakeCommand(),
-        }, config('pest-laravel-migrations.override_commands', []));
+        if (! config('pest-laravel-migrations.override_commands', false)) {
+            return;
+        }
+
+        $this->overrideMigrationMakeCommand();
+        $this->overrideTestMakeCommand();
     }
 
     public function overrideMigrationMakeCommand(): void
