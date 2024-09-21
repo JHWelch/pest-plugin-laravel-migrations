@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace JHWelch\PestLaravelMigrations;
 
 use Illuminate\Database\Console\Migrations\MigrateMakeCommand as LaravelMigrateMakeCommand;
+use Illuminate\Foundation\Console\TestMakeCommand as LaravelTestMakeCommand;
 use Illuminate\Support\ServiceProvider;
 use JHWelch\PestLaravelMigrations\Commands\MigrateMakeCommand;
+use JHWelch\PestLaravelMigrations\Commands\TestMakeCommand;
 
 final class PestLaravelMigrationsServiceProvider extends ServiceProvider
 {
@@ -43,6 +45,7 @@ final class PestLaravelMigrationsServiceProvider extends ServiceProvider
     {
         array_map(fn ($command) => match ($command) {
             MigrateMakeCommand::class => $this->overrideMigrationMakeCommand(),
+            TestMakeCommand::class => $this->overrideTestMakeCommand(),
         }, config('pest-laravel-migrations.override_commands', []));
     }
 
@@ -53,6 +56,13 @@ final class PestLaravelMigrationsServiceProvider extends ServiceProvider
             $composer = $app['composer'];
 
             return new MigrateMakeCommand($creator, $composer);
+        });
+    }
+
+    protected function overrideTestMakeCommand(): void
+    {
+        $this->app->extend(LaravelTestMakeCommand::class, function ($command, $app) {
+            return new TestMakeCommand($app['files']);
         });
     }
 }
