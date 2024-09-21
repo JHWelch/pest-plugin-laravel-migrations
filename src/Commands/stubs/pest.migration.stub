@@ -1,0 +1,5 @@
+<?php
+
+migration('{{ MigrationName }}', function ($up, $down) {
+    expect(true)->toBeTrue();
+});
