@@ -53,18 +53,19 @@ final class PestLaravelMigrationsServiceProvider extends ServiceProvider
 
     public function overrideMigrationMakeCommand(): void
     {
-        $this->app->extend(LaravelMigrateMakeCommand::class, function ($command, $app) {
-            $creator = $app['migration.creator'];
-            $composer = $app['composer'];
-
-            return new MigrateMakeCommand($creator, $composer);
-        });
+        $this->app->extend(
+            LaravelMigrateMakeCommand::class,
+            fn ($_, array $app): MigrateMakeCommand => new MigrateMakeCommand(
+                $app['migration.creator'],
+                $app['composer']
+            ));
     }
 
-    protected function overrideTestMakeCommand(): void
+    private function overrideTestMakeCommand(): void
     {
-        $this->app->extend(LaravelTestMakeCommand::class, function ($command, $app) {
-            return new TestMakeCommand($app['files']);
-        });
+        $this->app->extend(
+            LaravelTestMakeCommand::class,
+            fn ($_, $app): TestMakeCommand => new TestMakeCommand($app['files']),
+        );
     }
 }

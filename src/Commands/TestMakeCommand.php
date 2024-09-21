@@ -32,10 +32,9 @@ class TestMakeCommand extends LaravelTestMakeCommand
     }
 
     /**
-     * @param  string  $stub
      * @return string
      */
-    protected function resolveMigrationStubPath($stub)
+    protected function resolveMigrationStubPath(string $stub)
     {
         return file_exists($customPath = $this->laravel->basePath(trim($stub, '/')))
                         ? $customPath

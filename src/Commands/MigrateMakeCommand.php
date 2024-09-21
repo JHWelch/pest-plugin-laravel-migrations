@@ -36,9 +36,9 @@ class MigrateMakeCommand extends LaravelMigrateMakeCommand
 
     protected function createMigrationTest($path)
     {
-        $migration = basename($path, '.php');
+        $migration = basename((string) $path, '.php');
 
-        $testName = Str::studly(preg_replace('/[0-9]+/', '', $migration)).'Test';
+        $testName = Str::studly(preg_replace('/\d+/', '', $migration)).'Test';
 
         $this->call('make:test', [
             'name' => $testName,
