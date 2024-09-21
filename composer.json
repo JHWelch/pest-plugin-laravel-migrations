@@ -51,6 +51,11 @@
         }
     },
     "scripts": {
+        "link-regressions": [
+            "curl -o tests/CommandRegressions/AAATestCase.php https://raw.githubusercontent.com/laravel/framework/11.x/tests/Integration/Generators/TestCase.php",
+            "curl -o tests/CommandRegressions/MigrateMakeCommandTest.php https://raw.githubusercontent.com/laravel/framework/11.x/tests/Integration/Generators/MigrateMakeCommandTest.php",
+            "curl -o tests/CommandRegressions/TestMakeCommandTest.php https://raw.githubusercontent.com/laravel/framework/11.x/tests/Integration/Generators/TestMakeCommandTest.php"
+        ],
         "refacto": "rector",
         "lint": "pint",
         "test:refacto": "rector --dry-run",
