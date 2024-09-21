@@ -25,17 +25,24 @@ class MigrateMakeCommand extends LaravelMigrateMakeCommand
      */
     protected function writeMigration($name, $table, $create)
     {
-        parent::writeMigration($name, $table, $create);
-
         if ($this->option('test')) {
-            $this->createMigrationTest($name);
+            $this->creator->afterCreate(
+                fn ($_, $path) => $this->createMigrationTest($path)
+            );
         }
+
+        parent::writeMigration($name, $table, $create);
     }
 
-    protected function createMigrationTest($name)
+    protected function createMigrationTest($path)
     {
-        $name = Str::studly(preg_replace('/[0-9]+/', '', $name)).'Test';
+        $migration = basename($path, '.php');
 
-        $this->call('make:test', ['name' => "Tests/Migration/$name"]);
+        $testName = Str::studly(preg_replace('/[0-9]+/', '', $migration)).'Test';
+
+        $this->call('make:test', [
+            'name' => $testName,
+            '--migration' => $migration,
+        ]);
     }
 }
