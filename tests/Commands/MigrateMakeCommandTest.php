@@ -6,7 +6,6 @@ use JHWelch\PestLaravelMigrations\Tests\CommandTestCase;
 uses(CommandTestCase::class);
 
 beforeEach(function () {
-    $this->app->setBasePath(__DIR__.'/../test_data');
     Carbon::setTestNow(Carbon::create(2024, 9, 17, 0, 0, 0));
 });
 
@@ -17,7 +16,7 @@ it('creates a test for the migration', function () {
     ])
         ->expectsOutputToContain('Test [tests/Migration/UpdateUsersTableCombineNamesTest.php] created successfully.');
 
-    $this->assertFileExists(__DIR__.'/../test_data/tests/Migration/UpdateUsersTableCombineNamesTest.php');
+    $this->assertFileExists(self::TEST_DIRECTORY.'/tests/Migration/UpdateUsersTableCombineNamesTest.php');
 });
 it('behaves normally without the test flag', function () {
     $this->artisan('make:migration', [
@@ -25,5 +24,5 @@ it('behaves normally without the test flag', function () {
     ])
         ->doesntExpectOutputToContain('Test [tests/Migration/UpdateUsersTableCombineNamesTest.php] created successfully.');
 
-    $this->assertFileDoesNotExist(__DIR__.'/../test_data/tests/Migration/UpdateUsersTableCombineNamesTest.php');
+    $this->assertFileDoesNotExist(self::TEST_DIRECTORY.'/tests/Migration/UpdateUsersTableCombineNamesTest.php');
 });

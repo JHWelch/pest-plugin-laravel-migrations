@@ -13,7 +13,8 @@ class CommandTestCase extends TestCase
     {
         parent::setUp();
 
-        app()->useDatabasePath(__DIR__.'/test_data/database');
+        $this->app->setBasePath(self::TEST_DIRECTORY);
+        $this->app->useDatabasePath(self::TEST_DIRECTORY.'/database');
 
         $this->clearTestData();
     }
