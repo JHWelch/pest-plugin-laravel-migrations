@@ -30,6 +30,7 @@
         ]
     },
     "require-dev": {
+        "guzzlehttp/guzzle": "^7.9",
         "orchestra/testbench": "^9.4",
         "pestphp/pest-dev-tools": "^3.0.0",
         "spatie/invade": "^2.1"
