@@ -8,6 +8,7 @@ use Illuminate\Database\Console\Migrations\MigrateMakeCommand as LaravelMigrateM
 use Illuminate\Foundation\Console\TestMakeCommand as LaravelTestMakeCommand;
 use Illuminate\Support\ServiceProvider;
 use JHWelch\PestLaravelMigrations\Commands\MigrateMakeCommand;
+use JHWelch\PestLaravelMigrations\Commands\StubPublishCommand;
 use JHWelch\PestLaravelMigrations\Commands\TestMakeCommand;
 
 final class PestLaravelMigrationsServiceProvider extends ServiceProvider
@@ -26,6 +27,10 @@ final class PestLaravelMigrationsServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             __DIR__.'/../config/pest-laravel-migrations.php', 'pest-laravel-migrations'
         );
+
+        $this->commands([
+            StubPublishCommand::class,
+        ]);
     }
 
     public function boot(): void
