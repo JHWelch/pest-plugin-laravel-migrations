@@ -36,10 +36,11 @@ class StubPublishCommand extends Command
             __DIR__.'/stubs/pest.migration.stub' => 'pest.migration.stub',
         ];
 
+        // @phpstan-ignore-next-line
         $this->laravel['events']->dispatch($event = new PublishingStubs($stubs));
 
         foreach ($event->stubs as $from => $to) {
-            $to = $stubsPath.DIRECTORY_SEPARATOR.ltrim($to, DIRECTORY_SEPARATOR);
+            $to = $stubsPath.DIRECTORY_SEPARATOR.ltrim((string) $to, DIRECTORY_SEPARATOR);
 
             if ((! $this->option('existing') && (! file_exists($to) || $this->option('force')))
                 || ($this->option('existing') && file_exists($to))) {
